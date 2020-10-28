@@ -4,7 +4,7 @@ from ..utils.url_locator import URLLocator
 import pytest
 
 
-@pytest.fixture(scope='session'):
+@pytest.fixture(scope='session')
 def get_base_url_locator(variables):
     return URLLocator(
         variables['ip'],
@@ -12,21 +12,21 @@ def get_base_url_locator(variables):
     )
 
 
-@pytest.fixture(scope='module'):
+@pytest.fixture(scope='module')
 def login_url(get_base_url_locator):
     return get_base_url_locator.get_login_url()
 
 
-@pytest.fixture(scope='module'):
+@pytest.fixture(scope='module')
 def usuarios_url(get_base_url_locator):
     return get_base_url_locator.get_usuarios_url()
 
 
-@pytest.fixture(scope='module'):
+@pytest.fixture(scope='module')
 def produtos_url(get_base_url_locator):
     return get_base_url_locator.get_produtos_url()
 
 
-@pytest.fixture(scope='module'):
+@pytest.fixture(scope='module')
 def carrinhos_url(get_base_url_locator):
     return get_base_url_locator.get_carrinhos_url()
