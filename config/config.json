@@ -1,0 +1,7 @@
+{
+  "ip": "localhost",
+  "port": "3000",
+  "admin_name": "Fulano da Silva",
+  "admin_passwd": "teste",
+  "admin_email": "fulano@qa.com"
+}
