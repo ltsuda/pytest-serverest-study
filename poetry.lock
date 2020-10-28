@@ -200,6 +200,22 @@ py = "*"
 pytest = ">=3.10"
 
 [[package]]
+name = "pytest-variables"
+version = "1.9.0"
+description = "pytest plugin for providing variables to tests/fixtures"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pytest = ">=2.4.2"
+
+[package.extras]
+hjson = ["hjson"]
+toml = ["toml"]
+yaml = ["pyyaml"]
+
+[[package]]
 name = "pytest-xdist"
 version = "2.1.0"
 description = "pytest xdist plugin for distributed testing and loop-on-failing modes"
@@ -235,7 +251,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "51b3298f6edf48990001a8b59b8c095e5c9d61a8edfb7f18b00c34ff878cd26d"
+content-hash = "f98d324eafb897f418fd6a101ff252f8700e1180200cd63ba83e3424756d6806"
 
 [metadata.files]
 apipkg = [
@@ -340,6 +356,10 @@ pytest-coverage = [
 pytest-forked = [
     {file = "pytest-forked-1.3.0.tar.gz", hash = "sha256:6aa9ac7e00ad1a539c41bec6d21011332de671e938c7637378ec9710204e37ca"},
     {file = "pytest_forked-1.3.0-py2.py3-none-any.whl", hash = "sha256:dc4147784048e70ef5d437951728825a131b81714b398d5d52f17c7c144d8815"},
+]
+pytest-variables = [
+    {file = "pytest-variables-1.9.0.tar.gz", hash = "sha256:f79851e4c92a94c93d3f1d02377b5ac97cc8800392e87d108d2cbfda774ecc2a"},
+    {file = "pytest_variables-1.9.0-py2.py3-none-any.whl", hash = "sha256:ccf4afcd70de1f5f18b4463758a19f24647a9def1805f675e80db851c9e00ac0"},
 ]
 pytest-xdist = [
     {file = "pytest-xdist-2.1.0.tar.gz", hash = "sha256:82d938f1a24186520e2d9d3a64ef7d9ac7ecdf1a0659e095d18e596b8cbd0672"},
