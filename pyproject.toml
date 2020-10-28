@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pytest-api-study"
+version = "0.1.0"
+description = ""
+authors = ["ltsuda <leonardo.tsuda@icloud.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.1.2"
+pytest-coverage = "^0.0"
+pytest-xdist = "^2.1.0"
+autopep8 = "^1.5.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
