@@ -10,7 +10,7 @@ class URLLocator(object):
     def get_login_url(self):
         return f'{self.base_url}/login'
 
-    def get_usuario_url(self):
+    def get_usuarios_url(self):
         return f'{self.base_url}/usuarios'
 
     def get_produtos_url(self):
