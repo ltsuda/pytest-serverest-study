@@ -8,11 +8,14 @@ authors = ["ltsuda <leonardo.tsuda@icloud.com>"]
 python = "^3.8"
 
 [tool.poetry.dev-dependencies]
+autopep8 = "^1.5.4"
 pytest = "^6.1.2"
 pytest-coverage = "^0.0"
 pytest-xdist = "^2.1.0"
-autopep8 = "^1.5.4"
 pytest-variables = "^1.9.0"
+Faker = "^4.14.0"
+jwt = "^1.0.0"
+requests = "^2.24.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
