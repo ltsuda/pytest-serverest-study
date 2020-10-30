@@ -1,5 +1,4 @@
-from api.fixtures.url_locator import get_url_locator
-from ..utils.url_locator import URLLocator
+from utils.url_locator import URLLocator
 
 import pytest
 
