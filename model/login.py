@@ -1,5 +1,3 @@
-import jwt
-
 class Login(object):
     """
     Represents the login model used to authenticate with API.

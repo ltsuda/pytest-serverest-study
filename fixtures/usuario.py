@@ -6,7 +6,7 @@ import pytest
 
 @pytest.fixture(scope='module')
 def cadastrar_usuario(usuarios_url):
-    usuario = Usuario(administrator=True)
+    usuario = Usuario(administrator="true")
 
     response = requests.post(usuarios_url, json={
         'nome': usuario.name,

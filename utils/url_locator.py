@@ -5,7 +5,7 @@ class URLLocator(object):
     """
 
     def __init__(self, ip, port):
-        self.base_url = f'https://{ip}:{port}'
+        self.base_url = f'http://{ip}:{port}'
 
     def get_login_url(self):
         return f'{self.base_url}/login'

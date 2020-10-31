@@ -1,12 +1,12 @@
 from faker import Faker
-
+fake = Faker()
 
 class Usuario(object):
     """
     Representation of a user from the API server.
     """
-    def __init__(self, administrator=''):
+    def __init__(self, administrator="false"):
         self.name = fake.name()
         self.email = fake.email()
-        self.password = fake.misc.password()
-        self.administrator = True if administrator else fake.misc.boolean()
+        self.password = 'test'
+        self.administrator = administrator
