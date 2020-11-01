@@ -211,7 +211,7 @@ class TestUsuarios:
         assert resposta.status_code == 200
         assert resposta_de_sucesso["message"] == "Registro excluído com sucesso"
 
-    def test_delete_usuario_inexistente(self, faker, cadastrar_usuario, usuarios_url):
+    def test_delete_usuario_inexistente(self, faker, usuarios_url):
         resposta = requests.delete(usuarios_url + f'/{faker.uuid4()}')
 
         resposta_de_sucesso = resposta.json()
