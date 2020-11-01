@@ -1,7 +1,7 @@
 {
   "ip": "localhost",
   "port": "3000",
-  "name": "Fulano da Silva",
+  "nome": "Fulano da Silva",
   "email": "fulano@qa.com",
-  "passwd": "teste"
+  "password": "teste"
 }
