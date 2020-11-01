@@ -1,5 +1,3 @@
-from model import login
-from fixtures.url_locator import login_url
 import pytest
 import requests
 
