@@ -1,11 +1,10 @@
 from model.login import Login
-from requests.exceptions import HTTPError
 
 import requests
 import pytest
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def get_auth_token(login_url, variables):
     credentials = Login(variables['email'], variables['password'])
     response = requests.post(login_url, json={
