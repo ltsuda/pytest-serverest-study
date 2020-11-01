@@ -10,7 +10,7 @@ class Produto(object):
     """
 
     def __init__(self, preco=random.randint(10, 30000)):
-        self.nome = fake.company()
+        self.nome = fake.name()
         self.preco = preco
         self.descricao = fake.sentence()
         self.quantidade = random.randint(1, 1000)
