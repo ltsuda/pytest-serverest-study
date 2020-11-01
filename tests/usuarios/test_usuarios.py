@@ -1,6 +1,7 @@
 from model.usuario import Usuario
 
 import pytest
+import random
 import requests
 from copy import copy
 
@@ -134,12 +135,11 @@ class TestUsuarios:
 
         resposta = requests.post(
             usuarios_url, json={
-                "nome": usuario["nome"],
+                "nome": faker.name(),
                 "email": usuario["email"],
-                "password": usuario["password"],
-                "administrador": usuario["administrador"]
+                "password": faker.password(length=24),
+                "administrador": random.choice(["true", "false"])
             })
-
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 400
         assert resposta_de_sucesso["message"] == "Este email já está sendo usado"
