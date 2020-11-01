@@ -9,21 +9,23 @@ import pytest
 def cadastrar_produto(produtos_url, get_auth_token):
 
     def _cadastro(preco=random.randint(10, 30000)):
-        usuario = Produto(preco)
+        produto = Produto(preco)
 
-        headers = { "Authorization": f"{get_auth_token}" }
+        headers = {"Authorization": f"{get_auth_token}"}
         response = requests.post(produtos_url, json={
-            "nome": usuario.nome,
-            "preco": usuario.preco,
-            "descricao": usuario.descricao,
-            "quantidade": usuario.quantidade
+            "nome": produto.nome,
+            "preco": produto.preco,
+            "descricao": produto.descricao,
+            "quantidade": produto.quantidade
         }, headers=headers)
 
+        print(response.content)
+
         return {
-            "nome": usuario.nome,
-            "preco": usuario.preco,
-            "descricao": usuario.descricao,
-            "quantidade": usuario.quantidade,
+            "nome": produto.nome,
+            "preco": produto.preco,
+            "descricao": produto.descricao,
+            "quantidade": produto.quantidade,
             '_id': response.json()['_id']
         }
     return _cadastro
