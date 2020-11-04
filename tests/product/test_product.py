@@ -183,7 +183,6 @@ class TestProdutos:
             }, headers=headers)
 
         resposta_de_sucesso = resposta.json()
-        print(resposta_de_sucesso)
         assert resposta.status_code == 403
         assert resposta_de_sucesso["message"] == "Rota exclusiva para administradores"
 

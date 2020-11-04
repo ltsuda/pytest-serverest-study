@@ -19,8 +19,6 @@ def cadastrar_produto(produtos_url, get_auth_token):
             "quantidade": produto.quantidade
         }, headers=headers)
 
-        print(response.content)
-
         return {
             "nome": produto.nome,
             "preco": produto.preco,
