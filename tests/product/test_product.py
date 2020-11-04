@@ -114,7 +114,7 @@ class TestProdutos:
     def test_cadastrar_produto(self, produtos_url, get_auth_token):
         produto = Produto()
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.post(produtos_url, json={
             "nome": produto.nome,
@@ -131,7 +131,7 @@ class TestProdutos:
     def test_cadastrar_produto_existente(self, faker, cadastrar_produto, produtos_url, get_auth_token):
         produto = cadastrar_produto()
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.post(
             produtos_url, json={
@@ -191,7 +191,7 @@ class TestProdutos:
         produto_modificado = copy(produto)
         produto_modificado["preco"] = random.randint(10, 30000)
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.put(
             produtos_url + f'/{produto["_id"]}', json={
@@ -216,7 +216,7 @@ class TestProdutos:
         produto = Produto()
         produto_id = faker.uuid4()
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.put(
             produtos_url + f'/{produto_id}', json={
@@ -236,7 +236,7 @@ class TestProdutos:
         produto_modificado_id = faker.uuid4()
         produto_modificado["preco"] = random.randint(10, 30000)
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.put(
             produtos_url + f'/{produto_modificado_id}', json={
@@ -299,7 +299,7 @@ class TestProdutos:
     def test_delete_produto(self, cadastrar_produto, produtos_url, get_auth_token):
         produto = cadastrar_produto()
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.delete(
             produtos_url + f'/{produto["_id"]}', headers=headers)
@@ -309,7 +309,7 @@ class TestProdutos:
         assert resposta_de_sucesso["message"] == "Registro excluído com sucesso"
 
     def test_delete_produto_inexistente(self, faker, produtos_url, get_auth_token):
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
 
         resposta = requests.delete(
             produtos_url + f'/{faker.uuid4()}', headers=headers)
