@@ -9,7 +9,7 @@ class TestCarrinhos:
     Classe de testes do endpoint /produtos
     """
 
-    def test_buscar_produtos(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinhos(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
