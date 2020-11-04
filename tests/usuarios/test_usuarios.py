@@ -1,4 +1,5 @@
 from model.usuario import Usuario
+from model.carrinho import ProdutoCarrinho, Carrinho
 
 import pytest
 import random
@@ -218,7 +219,37 @@ class TestUsuarios:
         assert resposta.status_code == 200
         assert resposta_de_sucesso["message"] == "Nenhum registro excluído"
 
-    # TODO: Aguardar teste suite de carrinho
-    def test_delete_usuario_com_carrinho(self):
-        print("Não implementado ainda")
-        assert True == False
+    def test_delete_usuario_com_carrinho(self, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url, usuarios_url):
+        usuario = cadastrar_usuario(administrador="false")
+        auth_token = get_auth_token(usuario['email'], usuario['password'])
+
+        produto = cadastrar_produto()
+        quantidade_produto = random.randint(1, 10)
+        carrinho = Carrinho([ProdutoCarrinho(
+            produto["_id"], quantidade_produto)])
+
+        lista_de_produtos = []
+        for item in carrinho.produtos:
+            produto = {
+                "idProduto": item.produto_id,
+                "quantidade": item.quantidade
+            }
+            lista_de_produtos.append(produto)
+
+        headers = {"Authorization": f"{auth_token}"}
+        resposta = requests.post(carrinhos_url, json={
+            "produtos": lista_de_produtos
+        }, headers=headers)
+
+        cadastrar_carrinho_resposta = resposta.json()
+
+        assert resposta.status_code == 201
+
+        resposta = requests.delete(
+            usuarios_url + f"/{usuario['_id']}", headers=headers)
+
+        resposta_de_sucesso = resposta.json()
+
+        assert resposta.status_code == 400
+        assert resposta_de_sucesso["message"] == "Não é permitido excluir usuário com carrinho cadastrado"
+        assert resposta_de_sucesso["idCarrinho"] == cadastrar_carrinho_resposta["_id"]
