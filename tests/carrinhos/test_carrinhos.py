@@ -393,3 +393,46 @@ class TestCarrinhos:
 
         assert resposta.status_code == 401
         assert resposta_de_sucesso["message"] == "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais"
+
+    def test_cancelar_compra(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+        usuario = cadastrar_usuario(administrador="false")
+        auth_token = get_auth_token(usuario['email'], usuario['password'])
+
+        produto = cadastrar_produto()
+        quantidade_produto = random.randint(1, 10)
+        produto_carrinho = [ProdutoCarrinho(
+            produto["_id"], quantidade_produto)]
+        cadastrar_carrinho(produto_carrinho, auth_token)
+
+        headers = {"Authorization": f"{auth_token}"}
+        resposta = requests.delete(
+            carrinhos_url + "/cancelar-compra", headers=headers)
+
+        resposta_de_sucesso = resposta.json()
+
+        assert resposta.status_code == 200
+        assert resposta_de_sucesso["message"] == "Registro excluído com sucesso. Estoque dos produtos reabastecido"
+
+    def test_cancelar_compra_usuario_sem_carrinho(self, get_auth_token, cadastrar_usuario, carrinhos_url):
+        usuario = cadastrar_usuario(administrador="false")
+        auth_token = get_auth_token(usuario['email'], usuario['password'])
+
+        headers = {"Authorization": f"{auth_token}"}
+        resposta = requests.delete(
+            carrinhos_url + "/cancelar-compra", headers=headers)
+
+        resposta_de_sucesso = resposta.json()
+
+        assert resposta.status_code == 200
+        assert resposta_de_sucesso["message"] == "Não foi encontrado carrinho para esse usuário"
+
+    def test_cancelar_compra_com_token_invalido(self, get_auth_token, carrinhos_url):
+
+        headers = {"Authorization": f"{get_auth_token}"}
+        resposta = requests.delete(
+            carrinhos_url + "/cancelar-compra", headers=headers)
+
+        resposta_de_sucesso = resposta.json()
+
+        assert resposta.status_code == 401
+        assert resposta_de_sucesso["message"] == "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais"
