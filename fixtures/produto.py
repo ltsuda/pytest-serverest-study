@@ -11,7 +11,7 @@ def cadastrar_produto(produtos_url, get_auth_token):
     def _cadastro(preco=random.randint(10, 30000)):
         produto = Produto(preco)
 
-        headers = {"Authorization": f"{get_auth_token}"}
+        headers = {"Authorization": f"{get_auth_token()}"}
         response = requests.post(produtos_url, json={
             "nome": produto.nome,
             "preco": produto.preco,
