@@ -1,4 +1,4 @@
-class URLLocator(object):
+class LocalizadorURL(object):
     """
     Initiates the base API url and returns each endpoint
     exising in the ServeRest API.

@@ -1,11 +1,11 @@
-from utils.url_locator import URLLocator
+from utils.localizador_url.localizador_url import LocalizadorURL
 
 import pytest
 
 
 @pytest.fixture(scope='session')
 def get_url_principal(variables):
-    return URLLocator(
+    return LocalizadorURL(
         variables['ip'],
         variables['port']
     )
