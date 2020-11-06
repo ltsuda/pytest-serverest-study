@@ -1,4 +1,4 @@
-from model.carrinho import ProdutoCarrinho, Carrinho
+from model.carrinho import Carrinho
 
 import requests
 import pytest
