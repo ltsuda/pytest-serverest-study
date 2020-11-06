@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pytest-api-study"
+name = "pytest-serverest-study"
 version = "0.1.0"
 description = ""
 authors = ["ltsuda <leonardo.tsuda@icloud.com>"]
