@@ -6,8 +6,23 @@ import pytest
 
 @pytest.fixture(scope='module')
 def get_auth_token(url_login, variables):
+    """Fixture que retorna o método de login
+
+        Args:
+            url_login (fixture[str]): URL completa do endpoint de login
+            variables (dict): Dicionário com configurações carregadas pelo plugin pytest-variables
+    """
 
     def _login(email="", password=""):
+        """Realiza o login do usuário no sistema
+
+        Args:
+            email (str): Endereço de email do usuário (Vazio por padrão)
+            password (str): Senha do usuário (Vazio por padrão)
+
+        Returns:
+            (str) =  Bearer token para autenticação
+        """
         data = {
             "email": "",
             "password": ""
