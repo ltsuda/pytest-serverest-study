@@ -1,4 +1,4 @@
-from utils.localizador_url.localizador_url import LocalizadorURL
+from utils import LocalizadorURL
 
 import pytest
 

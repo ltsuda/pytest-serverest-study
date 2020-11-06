@@ -1,5 +1,5 @@
-from model.usuario import Usuario
-from model.carrinho import ProdutoCarrinho, Carrinho
+from model import Usuario
+from model import ProdutoCarrinho, Carrinho
 
 import pytest
 import random

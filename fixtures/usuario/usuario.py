@@ -1,4 +1,4 @@
-from model.usuario import Usuario
+from model import Usuario
 
 import requests
 import pytest

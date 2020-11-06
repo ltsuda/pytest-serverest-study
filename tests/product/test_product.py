@@ -1,5 +1,5 @@
-from model.produto import Produto
-from model.carrinho import ProdutoCarrinho, Carrinho
+from model import Produto
+from model import ProdutoCarrinho, Carrinho
 from copy import copy
 
 import pytest

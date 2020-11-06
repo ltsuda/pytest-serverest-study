@@ -1,4 +1,4 @@
-from model.login import Login
+from model import Login
 
 import requests
 import pytest

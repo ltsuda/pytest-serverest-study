@@ -1,4 +1,4 @@
-from model.produto import Produto
+from model import Produto
 
 import random
 import requests

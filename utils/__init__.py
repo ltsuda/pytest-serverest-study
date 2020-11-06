@@ -1,0 +1,1 @@
+from .localizador_url.localizador_url import *
