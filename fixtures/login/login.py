@@ -4,8 +4,8 @@ import requests
 import pytest
 
 
-@pytest.fixture(scope='function')
-def get_auth_token(login_url, variables):
+@pytest.fixture(scope='module')
+def get_auth_token(url_login, variables):
 
     def _login(email="", password=""):
         data = {
@@ -21,7 +21,7 @@ def get_auth_token(login_url, variables):
             data["email"] = credentials.email
             data["password"] = credentials.password
 
-        response = requests.post(login_url, json=data)
+        response = requests.post(url_login, json=data)
         response.raise_for_status()
         return response.json()['authorization']
 

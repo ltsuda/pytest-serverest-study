@@ -4,8 +4,8 @@ import requests
 import pytest
 
 
-@pytest.fixture(scope='function')
-def cadastrar_carrinho(carrinhos_url):
+@pytest.fixture(scope='module')
+def cadastrar_carrinho(url_carrinhos):
 
     def _cadastro(produtos, user_token):
         carrinho = Carrinho(produtos)
@@ -18,7 +18,7 @@ def cadastrar_carrinho(carrinhos_url):
             lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{user_token}"}
-        response = requests.post(carrinhos_url, json={
+        response = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
         return {

@@ -4,13 +4,13 @@ import requests
 import pytest
 
 
-@pytest.fixture(scope='function')
-def cadastrar_usuario(usuarios_url):
+@pytest.fixture(scope='module')
+def cadastrar_usuario(url_usuarios):
 
     def _cadastro(administrador="true"):
         usuario = Usuario(administrador)
 
-        response = requests.post(usuarios_url, json={
+        response = requests.post(url_usuarios, json={
             'nome': usuario.nome,
             'email': usuario.email,
             'password': usuario.password,

@@ -7,14 +7,14 @@ class URLLocator(object):
     def __init__(self, ip, port):
         self.base_url = f'http://{ip}:{port}'
 
-    def get_login_url(self):
+    def get_url_login(self):
         return f'{self.base_url}/login'
 
-    def get_usuarios_url(self):
+    def get_url_usuarios(self):
         return f'{self.base_url}/usuarios'
 
-    def get_produtos_url(self):
+    def get_url_produtos(self):
         return f'{self.base_url}/produtos'
 
-    def get_carrinhos_url(self):
+    def get_url_carrinhos(self):
         return f'{self.base_url}/carrinhos'

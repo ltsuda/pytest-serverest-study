@@ -9,7 +9,7 @@ class TestCarrinhos:
     Classe de testes do endpoint /produtos
     """
 
-    def test_buscar_carrinhos(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinhos(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -31,14 +31,14 @@ class TestCarrinhos:
             "_id": carrinho["_id"]
         }
 
-        resposta = requests.get(carrinhos_url)
+        resposta = requests.get(url_carrinhos)
 
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
         assert resposta_de_sucesso["quantidade"] >= 1
         assert carrinho_esperado in resposta_de_sucesso["carrinhos"]
 
-    def test_buscar_carrinho_por_id(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinho_por_id(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -61,13 +61,13 @@ class TestCarrinhos:
         }
 
         query = f'?_id={carrinho["_id"]}'
-        resposta = requests.get(carrinhos_url + query)
+        resposta = requests.get(url_carrinhos + query)
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
         assert resposta_de_sucesso["quantidade"] == 1
         assert carrinho_esperado == resposta_de_sucesso["carrinhos"][0]
 
-    def test_buscar_carrinho_por_preco_total(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinho_por_preco_total(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -90,13 +90,13 @@ class TestCarrinhos:
         }
 
         query = f'?precoTotal={carrinho_esperado["precoTotal"]}'
-        resposta = requests.get(carrinhos_url + query)
+        resposta = requests.get(url_carrinhos + query)
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
         assert resposta_de_sucesso["quantidade"] >= 1
         assert carrinho_esperado in resposta_de_sucesso["carrinhos"]
 
-    def test_buscar_carrinho_por_preco_total(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinho_por_preco_total(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -119,13 +119,13 @@ class TestCarrinhos:
         }
 
         query = f'?quantidadeTotal={carrinho_esperado["quantidadeTotal"]}'
-        resposta = requests.get(carrinhos_url + query)
+        resposta = requests.get(url_carrinhos + query)
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
         assert resposta_de_sucesso["quantidade"] >= 1
         assert carrinho_esperado in resposta_de_sucesso["carrinhos"]
 
-    def test_buscar_carrinho_por_usuario_id(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinho_por_usuario_id(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -148,13 +148,13 @@ class TestCarrinhos:
         }
 
         query = f'?idUsuario={carrinho_esperado["idUsuario"]}'
-        resposta = requests.get(carrinhos_url + query)
+        resposta = requests.get(url_carrinhos + query)
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
         assert resposta_de_sucesso["quantidade"] == 1
         assert carrinho_esperado == resposta_de_sucesso["carrinhos"][0]
 
-    def test_buscar_carrinho_por_quantidade_e_preco_total(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_buscar_carrinho_por_quantidade_e_preco_total(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -177,13 +177,13 @@ class TestCarrinhos:
         }
 
         query = f'?quantidadeTotal={carrinho_esperado["quantidadeTotal"]}&precoTotal={carrinho_esperado["precoTotal"]}'
-        resposta = requests.get(carrinhos_url + query)
+        resposta = requests.get(url_carrinhos + query)
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
         assert resposta_de_sucesso["quantidade"] == 1
         assert carrinho_esperado == resposta_de_sucesso["carrinhos"][0]
 
-    def test_cadastrar_carrinho(self, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url):
+    def test_cadastrar_carrinho(self, get_auth_token, cadastrar_usuario, cadastrar_produto, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -201,7 +201,7 @@ class TestCarrinhos:
             lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{auth_token}"}
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
 
@@ -211,7 +211,7 @@ class TestCarrinhos:
         assert resposta_de_sucesso["message"] == "Cadastro realizado com sucesso"
         assert "_id" in resposta_de_sucesso
 
-    def test_cadastrar_carrinho_com_produto_duplicado(self, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url):
+    def test_cadastrar_carrinho_com_produto_duplicado(self, get_auth_token, cadastrar_usuario, cadastrar_produto, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -230,7 +230,7 @@ class TestCarrinhos:
             lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{auth_token}"}
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
 
@@ -240,7 +240,7 @@ class TestCarrinhos:
         assert resposta_de_sucesso["message"] == "Não é permitido possuir produto duplicado"
         assert produto_cadastrado["_id"] == resposta_de_sucesso["idProdutosDuplicados"][0]
 
-    def test_cadastrar_mais_de_um_carrinho(self, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url):
+    def test_cadastrar_mais_de_um_carrinho(self, get_auth_token, cadastrar_usuario, cadastrar_produto, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -258,12 +258,12 @@ class TestCarrinhos:
             lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{auth_token}"}
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
         assert resposta.status_code == 201
 
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
 
@@ -272,7 +272,7 @@ class TestCarrinhos:
         assert resposta.status_code == 400
         assert resposta_de_sucesso["message"] == "Não é permitido ter mais de 1 carrinho"
 
-    def test_cadastrar_carrinho_produto_inexistente(self, faker, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url):
+    def test_cadastrar_carrinho_produto_inexistente(self, faker, get_auth_token, cadastrar_usuario, cadastrar_produto, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -284,7 +284,7 @@ class TestCarrinhos:
         lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{auth_token}"}
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
 
@@ -295,7 +295,7 @@ class TestCarrinhos:
         assert resposta_de_sucesso["item"]["idProduto"] == produto["idProduto"]
         assert resposta_de_sucesso["item"]["quantidade"] == produto["quantidade"]
 
-    def test_cadastrar_carrinho_quantidade_produto_insuficiente(self, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url):
+    def test_cadastrar_carrinho_quantidade_produto_insuficiente(self, get_auth_token, cadastrar_usuario, cadastrar_produto, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -313,7 +313,7 @@ class TestCarrinhos:
             lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{auth_token}"}
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
 
@@ -325,7 +325,7 @@ class TestCarrinhos:
         assert resposta_de_sucesso["item"]["quantidade"] == lista_de_produtos[0]["quantidade"]
         assert resposta_de_sucesso["item"]["quantidadeEstoque"] == produto_cadastrado["quantidade"]
 
-    def test_cadastrar_carrinho_com_token_invalido(self, faker, get_auth_token, cadastrar_usuario, cadastrar_produto, carrinhos_url):
+    def test_cadastrar_carrinho_com_token_invalido(self, faker, get_auth_token, cadastrar_usuario, cadastrar_produto, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
 
         produto = cadastrar_produto()
@@ -342,7 +342,7 @@ class TestCarrinhos:
             lista_de_produtos.append(produto)
 
         headers = {"Authorization": f"{faker.uuid4()}"}
-        resposta = requests.post(carrinhos_url, json={
+        resposta = requests.post(url_carrinhos, json={
             "produtos": lista_de_produtos
         }, headers=headers)
 
@@ -351,7 +351,7 @@ class TestCarrinhos:
         assert resposta.status_code == 401
         assert resposta_de_sucesso["message"] == "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais"
 
-    def test_completar_compra(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_completar_compra(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -363,38 +363,38 @@ class TestCarrinhos:
 
         headers = {"Authorization": f"{auth_token}"}
         resposta = requests.delete(
-            carrinhos_url + "/concluir-compra", headers=headers)
+            url_carrinhos + "/concluir-compra", headers=headers)
 
         resposta_de_sucesso = resposta.json()
 
         assert resposta.status_code == 200
         assert resposta_de_sucesso["message"] == "Registro excluído com sucesso"
 
-    def test_completar_compra_usuario_inexistente(self, get_auth_token, cadastrar_usuario, carrinhos_url):
+    def test_completar_compra_usuario_inexistente(self, get_auth_token, cadastrar_usuario, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
         headers = {"Authorization": f"{auth_token}"}
         resposta = requests.delete(
-            carrinhos_url + "/concluir-compra", headers=headers)
+            url_carrinhos + "/concluir-compra", headers=headers)
 
         resposta_de_sucesso = resposta.json()
 
         assert resposta.status_code == 200
         assert resposta_de_sucesso["message"] == "Não foi encontrado carrinho para esse usuário"
 
-    def test_completar_compra_com_token_invalido(self, faker, carrinhos_url):
+    def test_completar_compra_com_token_invalido(self, faker, url_carrinhos):
 
         headers = {"Authorization": f"{faker.uuid4()}"}
         resposta = requests.delete(
-            carrinhos_url + "/concluir-compra", headers=headers)
+            url_carrinhos + "/concluir-compra", headers=headers)
 
         resposta_de_sucesso = resposta.json()
 
         assert resposta.status_code == 401
         assert resposta_de_sucesso["message"] == "Token de acesso ausente, inválido, expirado ou usuário do token não existe mais"
 
-    def test_cancelar_compra(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, carrinhos_url):
+    def test_cancelar_compra(self, get_auth_token, cadastrar_usuario, cadastrar_produto, cadastrar_carrinho, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
@@ -406,31 +406,31 @@ class TestCarrinhos:
 
         headers = {"Authorization": f"{auth_token}"}
         resposta = requests.delete(
-            carrinhos_url + "/cancelar-compra", headers=headers)
+            url_carrinhos + "/cancelar-compra", headers=headers)
 
         resposta_de_sucesso = resposta.json()
 
         assert resposta.status_code == 200
         assert resposta_de_sucesso["message"] == "Registro excluído com sucesso. Estoque dos produtos reabastecido"
 
-    def test_cancelar_compra_usuario_sem_carrinho(self, get_auth_token, cadastrar_usuario, carrinhos_url):
+    def test_cancelar_compra_usuario_sem_carrinho(self, get_auth_token, cadastrar_usuario, url_carrinhos):
         usuario = cadastrar_usuario(administrador="false")
         auth_token = get_auth_token(usuario['email'], usuario['password'])
 
         headers = {"Authorization": f"{auth_token}"}
         resposta = requests.delete(
-            carrinhos_url + "/cancelar-compra", headers=headers)
+            url_carrinhos + "/cancelar-compra", headers=headers)
 
         resposta_de_sucesso = resposta.json()
 
         assert resposta.status_code == 200
         assert resposta_de_sucesso["message"] == "Não foi encontrado carrinho para esse usuário"
 
-    def test_cancelar_compra_com_token_invalido(self, get_auth_token, carrinhos_url):
+    def test_cancelar_compra_com_token_invalido(self, get_auth_token, url_carrinhos):
 
         headers = {"Authorization": f"{get_auth_token}"}
         resposta = requests.delete(
-            carrinhos_url + "/cancelar-compra", headers=headers)
+            url_carrinhos + "/cancelar-compra", headers=headers)
 
         resposta_de_sucesso = resposta.json()
 
