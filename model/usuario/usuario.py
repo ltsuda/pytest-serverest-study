@@ -17,5 +17,5 @@ class Usuario:
         """
         self.nome = fake.name()
         self.email = fake.email()
-        self.password = fake.password(length=24)
+        self.password = fake.uuid4()
         self.administrador = administrador
