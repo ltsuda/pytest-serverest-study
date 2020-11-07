@@ -1,4 +1,4 @@
-name: Run API testing with pytest for ServeRest
+name: pytest
 
 on:
   push:
