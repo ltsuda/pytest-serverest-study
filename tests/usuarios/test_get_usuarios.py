@@ -2,9 +2,9 @@ import pytest
 import requests
 
 
-class TestUsuarios:
+class TestGETUsuarios:
     """
-    Suite de testes do endpoint /usuarios
+    Suite de testes do endpoint /usuarios e método GET
     """
 
     @pytest.fixture(autouse=True)
