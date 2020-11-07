@@ -1,6 +1,4 @@
 from model import Produto
-from model import ProdutoCarrinho, Carrinho
-from copy import copy
 
 import pytest
 import random
