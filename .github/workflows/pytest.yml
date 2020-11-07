@@ -9,13 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
+
+      - name: Install ServeRest
+        run: npm i serverest
       
-      - name: Install and run ServeRest
-      - run: npm i serverest
-      - run: npx serverest@latest
+      - name: Run ServeRest
+        run: npx serverest@latest
 
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -24,10 +25,12 @@ jobs:
 
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v4
-      
+  
+      - name: Activate poetry shell
+        run: poetry shell
+  
       - name: Install project dependencies
-      - run: poetry shell
-      - run: poetry install
-      
+        run: poetry install
+
       - name: Run API testing with Poetry pytest
-      - run: poetry run pytest --variables config/config.json
+        run: poetry run pytest --variables config/config.json
