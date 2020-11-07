@@ -8,11 +8,8 @@ class TestUsuarios:
     """
 
     @pytest.fixture(autouse=True)
-    def setup_usuario(self, request, cadastrar_usuario):
-        if 'usuario_comum' in request.keywords:
-            self.usuario = cadastrar_usuario(administrador="false")
-        else:
-            self.usuario = cadastrar_usuario()
+    def setup_usuario(self, cadastrar_usuario):
+        self.usuario = cadastrar_usuario()
 
     def test_buscar_usuarios(self, url_usuarios):
         resposta = requests.get(url_usuarios)
