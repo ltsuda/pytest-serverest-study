@@ -24,13 +24,14 @@ jobs:
           python-version: '3.8'
 
       - name: Setup Poetry
-        uses: Gr1N/setup-poetry@v4
-  
-      - name: Activate poetry shell
-        run: poetry shell
+        uses: snok/install-poetry@v1.0.0
+        with:
+          virtualenvs-in-project: true  
   
       - name: Install project dependencies
         run: poetry install
 
       - name: Run API testing with Poetry pytest
-        run: poetry run pytest --variables config/config.json
+        run: |
+          source .venv/bin/activate
+          poetry run pytest --variables config/config.json
