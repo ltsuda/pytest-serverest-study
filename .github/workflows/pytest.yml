@@ -16,7 +16,7 @@ jobs:
         run: npm i serverest
       
       - name: Run ServeRest
-        run: npx serverest@latest
+        run: (npx serverest@latest &)
 
       - name: Setup Python
         uses: actions/setup-python@v2
