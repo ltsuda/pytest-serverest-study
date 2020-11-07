@@ -60,8 +60,8 @@ class TestDELETEUsuarios:
         resposta = requests.delete(
             url_usuarios + f"/{self.usuario['_id']}", headers=headers)
 
-        resposta_de_sucesso = resposta.json()
+        resposta_de_erro = resposta.json()
 
         assert resposta.status_code == 400
-        assert resposta_de_sucesso["message"] == "Não é permitido excluir usuário com carrinho cadastrado"
-        assert resposta_de_sucesso["idCarrinho"] == cadastrar_carrinho_resposta["_id"]
+        assert resposta_de_erro["message"] == "Não é permitido excluir usuário com carrinho cadastrado"
+        assert resposta_de_erro["idCarrinho"] == cadastrar_carrinho_resposta["_id"]

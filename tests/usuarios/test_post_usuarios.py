@@ -39,6 +39,6 @@ class TestPOSTUsuarios:
                 "password": faker.uuid4(),
                 "administrador": random.choice(["true", "false"])
             })
-        resposta_de_sucesso = resposta.json()
+        resposta_de_erro = resposta.json()
         assert resposta.status_code == 400
-        assert resposta_de_sucesso["message"] == "Este email já está sendo usado"
+        assert resposta_de_erro["message"] == "Este email já está sendo usado"
