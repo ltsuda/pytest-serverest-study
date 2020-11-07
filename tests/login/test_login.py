@@ -4,52 +4,57 @@ import requests
 
 class TestLogin:
     """
-    TestLogin that holds the valid login tests.
+    Suite de testes do endpoint /login
     """
 
-    def test_admin(self, cadastrar_usuario, url_login):
-        usuario = cadastrar_usuario()
-        response = requests.post(url_login, json={
-            "email": usuario["email"],
-            "password": usuario["password"]
+    @pytest.fixture(autouse=True)
+    def setup_usuario(self, request, cadastrar_usuario):
+        if 'usuario_comum' in request.keywords:
+            self.usuario = cadastrar_usuario(administrador="false")
+        else:
+            self.usuario = cadastrar_usuario()
+
+    def test_login_com_administrador(self, url_login):
+        resposta = requests.post(url_login, json={
+            "email": self.usuario["email"],
+            "password": self.usuario["password"]
         })
 
-        success_response = response.json()
-        assert success_response["message"] == "Login realizado com sucesso"
-        assert "authorization" in success_response
-        assert "Bearer" in success_response["authorization"]
+        resposta_de_sucesso = resposta.json()
+        assert resposta.status_code == 200
+        assert resposta_de_sucesso["message"] == "Login realizado com sucesso"
+        assert "authorization" in resposta_de_sucesso
+        assert "Bearer" in resposta_de_sucesso["authorization"]
 
-    def test_non_admin(self, cadastrar_usuario, url_login):
-        usuario = cadastrar_usuario(administrador="false")
-        response = requests.post(url_login, json={
-            "email": usuario["email"],
-            "password": usuario["password"]
+    @pytest.mark.usuario_comum
+    def test_login_com_usuario_comum(self, url_login):
+        resposta = requests.post(url_login, json={
+            "email": self.usuario["email"],
+            "password": self.usuario["password"]
         })
 
-        success_response = response.json()
-        assert response.status_code == 200
-        assert success_response["message"] == "Login realizado com sucesso"
-        assert "authorization" in success_response
-        assert "Bearer" in success_response["authorization"]
+        resposta_de_sucesso = resposta.json()
+        assert resposta.status_code == 200
+        assert resposta_de_sucesso["message"] == "Login realizado com sucesso"
+        assert "authorization" in resposta_de_sucesso
+        assert "Bearer" in resposta_de_sucesso["authorization"]
 
-    def test_invalid_email(self, cadastrar_usuario, url_login):
-        usuario = cadastrar_usuario()
-        response = requests.post(url_login, json={
+    def test_login_com_email_invalido(self, url_login):
+        resposta = requests.post(url_login, json={
             "email": "invalid@gmail.com",
-            "password": usuario["password"]
+            "password": self.usuario["password"]
         })
 
-        error_response = response.json()
-        assert response.status_code == 401
-        assert error_response["message"] == "Email e/ou senha inválidos"
+        resposta_com_erro = resposta.json()
+        assert resposta.status_code == 401
+        assert resposta_com_erro["message"] == "Email e/ou senha inválidos"
 
-    def test_invalid_password(self, cadastrar_usuario, url_login):
-        usuario = cadastrar_usuario()
-        response = requests.post(url_login, json={
-            "email": usuario["email"],
+    def test_login_com_senha_invalida(self, url_login):
+        resposta = requests.post(url_login, json={
+            "email": self.usuario["email"],
             "password": "invalid"
         })
 
-        error_response = response.json()
-        assert response.status_code == 401
-        assert error_response["message"] == "Email e/ou senha inválidos"
+        resposta_com_erro = resposta.json()
+        assert resposta.status_code == 401
+        assert resposta_com_erro["message"] == "Email e/ou senha inválidos"
