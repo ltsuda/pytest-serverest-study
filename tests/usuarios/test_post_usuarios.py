@@ -12,7 +12,7 @@ class TestPOSTUsuarios:
 
     @pytest.fixture(autouse=True)
     def setup_usuario(self, request, cadastrar_usuario):
-        if 'cadastro_usuario_existente' in request.keywords:
+        if 'usuario_existente' in request.keywords:
             self.usuario_existente = cadastrar_usuario()
         else:
             self.usuario = Usuario()
@@ -30,7 +30,7 @@ class TestPOSTUsuarios:
         assert resposta_de_sucesso["message"] == "Cadastro realizado com sucesso"
         assert "_id" in resposta_de_sucesso
 
-    @pytest.mark.cadastro_usuario_existente
+    @pytest.mark.usuario_existente
     def test_cadastrar_usuario_ja_existente(self, faker, url_usuarios):
         resposta = requests.post(
             url_usuarios, json={
