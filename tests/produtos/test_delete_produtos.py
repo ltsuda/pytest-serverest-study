@@ -7,7 +7,7 @@ import pytest
 
 class TestDELETEProdutos:
     """
-    Suite de testes do endpoint /produtos e método PUT
+    Suite de testes do endpoint /produtos e método DELETE
     """
 
     @pytest.fixture(autouse=True)
