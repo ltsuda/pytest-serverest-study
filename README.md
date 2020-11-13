@@ -32,7 +32,7 @@ pytest-serverest-study > poetry run pytest --variables config/config.json
 ```
 
 Se tudo der certo, o resultado será apresentado conforme imagem abaixo:
-
+![image](https://user-images.githubusercontent.com/3965277/99024258-f1d1e280-2544-11eb-9977-1e9553586879.png)
 
 ### Estrutura de diretórios
 ```text
