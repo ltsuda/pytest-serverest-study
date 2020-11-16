@@ -1,0 +1,17 @@
+{
+  "$id": "Login Schema Válido",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Login Válido",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem de autenticação válida"
+    },
+    "authorization": {
+      "type": "string",
+      "description": "Bearer token de autenticação"
+    }
+  },
+  "required": ["message", "authorization"]
+}

@@ -1,0 +1,13 @@
+{
+  "$id": "Login Schema Com Dados Inválidos",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Login Com Dados Inválidos",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem de email e/ou senha inválidos"
+    }
+  },
+  "required": ["message"]
+}

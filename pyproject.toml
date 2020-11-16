@@ -13,6 +13,7 @@ pytest = "^6.1.2"
 pytest-variables = "^1.9.0"
 Faker = "^4.14.0"
 requests = "^2.24.0"
+jsonschema = "^3.2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
