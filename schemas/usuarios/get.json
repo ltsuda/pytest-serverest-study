@@ -1,0 +1,45 @@
+{
+  "$id": "Buscar Usuários Schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Buscar Usuários Schema",
+  "type": "object",
+  "properties": {
+    "quantidade": {
+      "type": "integer",
+      "description": "Quantidade de usuários retornados"
+    },
+    "usuarios": {
+      "type": "array",
+      "items": { "$ref": "#definitions/usuario" }
+    }
+  },
+  "required": ["quantidade", "usuarios"],
+  "definitions": {
+    "usuario": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "description": "nome do usuário"
+        },
+        "email": {
+          "type": "string",
+          "description": "endereço de email do usuário"
+        },
+        "password": {
+          "type": "string",
+          "description": "senha de acesso do usuário"
+        },
+        "administrador": {
+          "type": "string",
+          "description": "indica se o usuário é administrador"
+        },
+        "_id": {
+          "type": "string",
+          "description": "id do usuário"
+        }
+      },
+      "required": ["nome", "email", "password", "administrador", "_id"]
+    }
+  }
+}
