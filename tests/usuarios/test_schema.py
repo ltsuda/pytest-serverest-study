@@ -18,8 +18,15 @@ class TestUsuariosSchema:
         valida_schema(suite='usuarios', data=resposta.json(),
                       filename='get')
 
-    def test_criar_usuario_schema(self, faker, url_usuarios, valida_schema):
+    def test_criar_usuario_schema(self, url_usuarios, valida_schema):
         resposta = requests.post(url_usuarios, json={})
+
+        assert resposta.status_code == 400
+        valida_schema(suite='usuarios', data=resposta.json(),
+                      filename='post_sem_dados')
+
+    def test_editar_usuario_schema(self, url_usuarios, valida_schema):
+        resposta = requests.put(url_usuarios + '/1234', json={})
 
         assert resposta.status_code == 400
         valida_schema(suite='usuarios', data=resposta.json(),

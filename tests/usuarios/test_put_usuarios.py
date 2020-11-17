@@ -18,7 +18,7 @@ class TestPUTUsuarios:
             self.usuario = Usuario()
 
     @pytest.mark.usuario_existente
-    def test_editar_usuario(self, faker, url_usuarios):
+    def test_editar_usuario(self, faker, url_usuarios, valida_schema):
         usuario_modificado = copy(self.usuario_existente)
         usuario_modificado["password"] = faker.uuid4()
 
@@ -32,6 +32,8 @@ class TestPUTUsuarios:
 
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
+        valida_schema(suite='usuarios', data=resposta_de_sucesso,
+                      filename='put')
         assert resposta_de_sucesso["message"] == "Registro alterado com sucesso"
 
         query = f'?_id={self.usuario_existente["_id"]}'
@@ -41,7 +43,7 @@ class TestPUTUsuarios:
         assert resposta.status_code == 200
         assert resposta_de_sucesso["usuarios"][0] == usuario_modificado
 
-    def test_editar_usuario_com_id_nao_encontrado(self, faker, url_usuarios):
+    def test_editar_usuario_com_id_nao_encontrado(self, faker, url_usuarios, valida_schema):
         usuario_id = faker.uuid4()
 
         resposta = requests.put(url_usuarios + f"/{usuario_id}", json={
@@ -53,11 +55,13 @@ class TestPUTUsuarios:
 
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 201
+        valida_schema(suite='usuarios', data=resposta_de_sucesso,
+                      filename='post')
         assert resposta_de_sucesso["message"] == "Cadastro realizado com sucesso"
         assert "_id" in resposta_de_sucesso
 
     @pytest.mark.usuario_existente
-    def test_editar_usuario_com_email_ja_existente_e_id_nao_encontrado(self, faker, cadastrar_usuario, url_usuarios):
+    def test_editar_usuario_com_email_ja_existente_e_id_nao_encontrado(self, faker, cadastrar_usuario, url_usuarios, valida_schema):
         usuario_modificado = copy(self.usuario_existente)
         usuario_modificado["password"] = faker.uuid4()
         usuario_modificado_id = faker.uuid4()
@@ -72,4 +76,6 @@ class TestPUTUsuarios:
 
         resposta_de_erro = resposta.json()
         assert resposta.status_code == 400
+        valida_schema(suite='usuarios', data=resposta_de_erro,
+                      filename='post_já_existente')
         assert resposta_de_erro["message"] == "Este email já está sendo usado"

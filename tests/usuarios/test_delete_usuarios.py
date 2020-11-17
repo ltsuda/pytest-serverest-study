@@ -17,22 +17,26 @@ class TestDELETEUsuarios:
         else:
             self.usuario = cadastrar_usuario()
 
-    def test_delete_usuario(self, url_usuarios):
+    def test_delete_usuario(self, url_usuarios, valida_schema):
         resposta = requests.delete(url_usuarios + f'/{self.usuario["_id"]}')
 
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
+        valida_schema(suite='usuarios', data=resposta_de_sucesso,
+                      filename='delete')
         assert resposta_de_sucesso["message"] == "Registro excluído com sucesso"
 
-    def test_delete_usuario_inexistente(self, faker, url_usuarios):
+    def test_delete_usuario_inexistente(self, faker, url_usuarios, valida_schema):
         resposta = requests.delete(url_usuarios + f'/{faker.uuid4()}')
 
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 200
+        valida_schema(suite='usuarios', data=resposta_de_sucesso,
+                      filename='delete')
         assert resposta_de_sucesso["message"] == "Nenhum registro excluído"
 
     @pytest.mark.usuario_comum
-    def test_delete_usuario_com_carrinho(self, get_auth_token, cadastrar_produto, url_carrinhos, url_usuarios):
+    def test_delete_usuario_com_carrinho(self, get_auth_token, cadastrar_produto, url_carrinhos, url_usuarios, valida_schema):
         auth_token = get_auth_token(
             self.usuario['email'], self.usuario['password'])
 
@@ -63,5 +67,7 @@ class TestDELETEUsuarios:
         resposta_de_erro = resposta.json()
 
         assert resposta.status_code == 400
+        valida_schema(suite='usuarios', data=resposta_de_erro,
+                      filename='delete_com_carrinho')
         assert resposta_de_erro["message"] == "Não é permitido excluir usuário com carrinho cadastrado"
         assert resposta_de_erro["idCarrinho"] == cadastrar_carrinho_resposta["_id"]

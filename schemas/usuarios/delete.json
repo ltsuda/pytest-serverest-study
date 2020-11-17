@@ -1,0 +1,13 @@
+{
+  "$id": "Deletar Usuário Schema Válido",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deletar Usuário Válido",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem usuário excluído com sucesso ou nenhum registro excluído"
+    }
+  },
+  "required": ["message"]
+}

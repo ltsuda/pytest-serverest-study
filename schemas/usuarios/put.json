@@ -1,0 +1,13 @@
+{
+  "$id": "Editar Usuário Schema Válido",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Editar Usuário Válido",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem de alteração com sucesso"
+    }
+  },
+  "required": ["message"]
+}

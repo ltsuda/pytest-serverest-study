@@ -1,0 +1,17 @@
+{
+  "$id": "Deletar Usuário Schema Com Carrinho",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Deletar Usuário Com Carrinho",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem de erro que usuário possui carrinho e não pode ser deletado"
+    },
+    "idCarrinho": {
+      "type": "string",
+      "description": "id do carrinho pertencente ao usuário"
+    }
+  },
+  "required": ["message", "idCarrinho"]
+}
