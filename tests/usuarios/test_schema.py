@@ -17,3 +17,10 @@ class TestUsuariosSchema:
         assert resposta.status_code == 200
         valida_schema(suite='usuarios', data=resposta.json(),
                       filename='get')
+
+    def test_criar_usuario_schema(self, faker, url_usuarios, valida_schema):
+        resposta = requests.post(url_usuarios, json={})
+
+        assert resposta.status_code == 400
+        valida_schema(suite='usuarios', data=resposta.json(),
+                      filename='post_sem_dados')

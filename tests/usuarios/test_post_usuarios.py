@@ -17,7 +17,7 @@ class TestPOSTUsuarios:
         else:
             self.usuario = Usuario()
 
-    def test_cadastrar_usuario(self, url_usuarios):
+    def test_cadastrar_usuario(self, url_usuarios, valida_schema):
         resposta = requests.post(url_usuarios, json={
             "nome": self.usuario.nome,
             "email": self.usuario.email,
@@ -27,11 +27,12 @@ class TestPOSTUsuarios:
 
         resposta_de_sucesso = resposta.json()
         assert resposta.status_code == 201
+        valida_schema(suite='usuarios', data=resposta_de_sucesso,
+                      filename='post')
         assert resposta_de_sucesso["message"] == "Cadastro realizado com sucesso"
-        assert "_id" in resposta_de_sucesso
 
     @pytest.mark.usuario_existente
-    def test_cadastrar_usuario_ja_existente(self, faker, url_usuarios):
+    def test_cadastrar_usuario_ja_existente(self, faker, url_usuarios, valida_schema):
         resposta = requests.post(
             url_usuarios, json={
                 "nome": faker.name(),
@@ -41,4 +42,6 @@ class TestPOSTUsuarios:
             })
         resposta_de_erro = resposta.json()
         assert resposta.status_code == 400
+        valida_schema(suite='usuarios', data=resposta_de_erro,
+                      filename='post_já_existente')
         assert resposta_de_erro["message"] == "Este email já está sendo usado"

@@ -1,0 +1,17 @@
+{
+  "$id": "Criar Usuário Schema Válido",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Criar Usuário Válido",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem de autenticação válida"
+    },
+    "_id": {
+      "type": "string",
+      "description": "id criado pelo sistema"
+    }
+  },
+  "required": ["message", "_id"]
+}

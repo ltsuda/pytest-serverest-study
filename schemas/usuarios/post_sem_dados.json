@@ -1,0 +1,25 @@
+{
+  "$id": "Criar Usuário Schema Inválido Sem Dados",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Criar Usuário Schema Inválido Sem Dados",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "Endereço de email do usuário."
+    },
+    "password": {
+      "type": "string",
+      "description": "Senha de acesso do usuário."
+    },
+    "nome": {
+      "type": "string",
+      "description": "Nome do usuário."
+    },
+    "administrador": {
+      "type": "string",
+      "description": "indica se o usuário é administrador"
+    }
+  },
+  "required": ["nome", "email", "password", "administrador"]
+}

@@ -1,0 +1,13 @@
+{
+  "$id": "Criar Usuário Já Existente Schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Criar Usuário Já Existente Schema",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Mensagem de email já cadastrado"
+    }
+  },
+  "required": ["message"]
+}
